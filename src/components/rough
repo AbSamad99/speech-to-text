@@ -1,0 +1,132 @@
+if(this.state.route==='home' && this.state.edit===true){
+  return(
+    <div className='App'>
+      <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+      <div className='flex flex-column justify-center'>
+        <FinalEdit textAreaAdjust={this.textAreaAdjust} updateTranscript={this.updateTranscript} finalTranscript={this.state.finalTranscript}/>
+        <p onClick={this.toggleEdit} className='pointer link underline'>Back to recording</p>
+      </div>
+      <div className='flex justify-center'>
+        <SaveButton saveText={this.saveText}/>
+      </div>
+      <h4 className='mid-gray'>Click on Help in the navigation bar to learn how to use this website</h4>
+      <div className='flex justify-center'>
+        <ViewButton getLogs={this.getLogs} onRouteChange={this.onRouteChange}/>
+      </div>
+    </div>
+  );
+}
+else if (this.state.route==='home' && this.state.edit===false) {
+  return(
+    <div className='App'>
+      <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+      <div className='flex flex-column mt2'>
+        <h2 className='mid-gray'>{`Welcome ${this.state.user.name}, are you ready to record your logs?`}</h2>
+        <div className='flex justify-center'>
+          <StartButton onStart={this.toggleListen}/>
+          <ResetButton onStop={this.reset}/>
+        </div>
+        <div className='flex flex-column justify-center'>
+            <div className='flex flex-column justify-center'>
+              <Final finalTranscript={this.state.finalTranscript}/>
+              <p onClick={this.toggleEdit} className='pointer link underline'>Edit</p>
+            </div>
+        </div>
+        <div className='flex justify-center'>
+          <SaveButton saveText={this.saveText}/>
+        </div>
+        <h4 className='mid-gray'>Click on Help in the navigation bar to learn how to use this website</h4>
+        <div className='flex justify-center'>
+          <ViewButton getLogs={this.getLogs} onRouteChange={this.onRouteChange}/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+else if(this.state.route==='signin'){
+  return(
+    <div className='App'>
+      <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+      <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+    </div>
+  );
+}
+else if(this.state.route==='register'){
+  return(
+    <div className='App'>
+      <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+      <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+    </div>
+  );
+}
+else if(this.state.route==='about'){
+  return(
+    <div className='App'>
+    <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+    <About onRouteChange={this.onRouteChange}/>
+  </div>
+  );
+}
+else if(this.state.route==='logs'){
+  return(
+    <div className='App'>
+    <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+    <UserTexts logList={this.state.logs} onRouteChange={this.onRouteChange}/>
+  </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+return (
+  <div className="App">
+    <Navigation route={this.state.route} onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+    {(this.state.route==='logs')
+    ?<UserTexts logList={this.state.logs} onRouteChange={this.onRouteChange}/>
+    :(this.state.route==='home')
+    ?<div className='flex flex-column mt2'>
+      <h2 className='mid-gray'>{`Welcome ${this.state.user.name}, are you ready to record your logs?`}</h2>
+      <div className='flex justify-center'>
+        <StartButton onStart={this.toggleListen}/>
+        <ResetButton onStop={this.reset}/>
+      </div>
+      <div className='flex flex-column justify-center'>
+        {
+          (this.state.edit===true)
+          ?<div className='flex flex-column justify-center'>
+            <FinalEdit textAreaAdjust={this.textAreaAdjust} updateTranscript={this.updateTranscript} finalTranscript={this.state.finalTranscript}/>
+            <p onClick={this.toggleEdit} className='pointer link underline'>Back to recording</p>
+          </div>
+          :<div className='flex flex-column justify-center'>
+            <Final finalTranscript={this.state.finalTranscript}/>
+            <p onClick={this.toggleEdit} className='pointer link underline'>Edit</p>
+          </div>
+        }
+      </div>
+      <div className='flex justify-center'>
+        <SaveButton saveText={this.saveText}/>
+      </div>
+      <h4 className='mid-gray'>Click on Help in the navigation bar to learn how to use this website</h4>
+      <div className='flex justify-center'>
+        <ViewButton getLogs={this.getLogs} onRouteChange={this.onRouteChange}/>
+      </div>
+    </div>
+    :(this.state.route==='signin')
+    ?<Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+    :(this.state.route==='about')
+    ?<About onRouteChange={this.onRouteChange}/>
+    :<Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+    }
+  </div>
+);
