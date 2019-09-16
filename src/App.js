@@ -143,7 +143,7 @@ class App extends Component {
 
   saveText=() => {
     if(this.state.finalTranscript.length){
-      fetch('http://localhost:2000/save',{
+      fetch('https://sleepy-lake-61257.herokuapp.com/save',{
         method:'put',
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
@@ -181,7 +181,7 @@ class App extends Component {
     if(this.state.listening===true){
       this.setState({listening:false},this.toggleListen())
     }
-    fetch('http://localhost:2000/posts',{
+    fetch('https://sleepy-lake-61257.herokuapp.com/posts',{
       method:'post',
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
