@@ -190,9 +190,23 @@ class App extends Component {
       })
     })
     .then(response=>response.json())
-    .then(data=>this.setState({
+    .then(data=>{
+      this.setState({
       logs:data
-    }))
+    });
+    if(data){
+      fetch('https://sleepy-lake-61257.herokuapp.com/postupdate',{
+        method:'put',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          id:this.state.user.id
+        })
+      }).then(response=>response.json())
+        .then(count=>{
+          this.setState(Object.assign(this.state.user,{entries:count}))
+        })
+    }
+  })
     .catch(err=>console.log(err));
   }
 
